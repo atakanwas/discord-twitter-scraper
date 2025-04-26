@@ -41,3 +41,13 @@ python discscraper.py
 4. Press ENTER once Discord is loaded and members are visible.
 
 5. Let it work. Links will be saved into twitter_links.txt when done.
+
+Important Notes
+Your Discord must already be logged in.
+
+Only works in servers where you have access to the full member list.
+
+For educational and research purposes only. I am not responsible for misuse.
+
+Made with ❤️ by Bytebl33d3r
+
