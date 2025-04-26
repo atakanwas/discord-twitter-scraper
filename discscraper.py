@@ -8,23 +8,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
+from colorama import Fore, Style, init
 
 # === CONFIG ===
-DISCORD_URL = "https://discord.com/channels/881218045945712680/921973342439899137"
+DISCORD_URL = "https://discord.com/channels/874638621368533012/916451487834599494"
 OUTPUT_FILE = "twitter_links.txt"
-CHROME_PROFILE_PATH = "C:/Users/name/AppData/Local/Google/Chrome/User Data"
+CHROME_PROFILE_PATH = "C:/Users/admin1/AppData/Local/Google/Chrome/User Data"
 PROFILE_NAME = "Default"
 
 # === SETUP CHROME ===
+init(autoreset=True)
 options = uc.ChromeOptions()
 options.add_argument(f"--user-data-dir={CHROME_PROFILE_PATH}")
 options.add_argument(f"--profile-directory={PROFILE_NAME}")
 driver = uc.Chrome(options=options)
 driver.get(DISCORD_URL)
-from colorama import Fore, Style, init
-
-init(autoreset=True)  # Auto-reset color after each print
-
 
 banner = r"""
 ▓█████▄  ██▓  ██████  ▄████▄   ▒█████   ██▀███  ▓█████▄       
@@ -37,21 +35,8 @@ banner = r"""
  ░ ░  ░  ▒ ░░  ░  ░  ░        ░ ░ ░ ▒    ░░   ░  ░ ░  ░       
    ░     ░        ░  ░ ░          ░ ░     ░        ░                    
  ░                   ░                           ░                 
-  ██████  ▄████▄   ██▀███   ▄▄▄       ██▓███  ▓█████  ██▀███   
-▒██    ▒ ▒██▀ ▀█  ▓██ ▒ ██▒▒████▄    ▓██░  ██▒▓█   ▀ ▓██ ▒ ██▒
-░ ▓██▄   ▒▓█    ▄ ▓██ ░▄█ ▒▒██  ▀█▄  ▓██░ ██▓▒▒███   ▓██ ░▄█ ▒    
-  ▒   ██▒▒▓▓▄ ▄██▒▒██▀▀█▄  ░██▄▄▄▄██ ▒██▄█▓▒ ▒▒▓█  ▄ ▒██▀▀█▄  
-▒██████▒▒▒ ▓███▀ ░░██▓ ▒██▒ ▓█   ▓██▒▒██▒ ░  ░░▒████▒░██▓ ▒██▒
-▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░ ▒▓ ░▒▓░ ▒▒   ▓▒█░▒▓▒░ ░  ░░░ ▒░ ░░ ▒▓ ░▒▓░
-░ ░▒  ░ ░  ░  ▒     ░▒ ░ ▒░  ▒   ▒▒ ░░▒ ░      ░ ░  ░  ░▒ ░ ▒░
-░  ░  ░  ░          ░░   ░   ░   ▒   ░░          ░     ░░   ░ 
-      ░  ░ ░         ░           ░  ░            ░  ░   ░     
-         ░                                                                               
-         Made by https://t.me/Bytebl33d3r
 """
-
 print(Fore.RED + banner + Style.RESET_ALL)
-
 input("🟢 Press ENTER when ready to begin scraping...")
 
 twitter_links = set()
@@ -74,13 +59,13 @@ def try_open_full_bio():
         print("📖 Clicked 'View Full Bio'.")
         return True
     except:
-        print("ℹ️ No 'View Full Bio' button, scraping mini-profile.")
         return False
 
 def extract_twitter():
-    expanded = try_open_full_bio()
+    found_any = False
 
     try:
+        # 1. Scrape connected accounts
         connections = driver.find_elements(By.XPATH, '//div[contains(@class, "connectedAccountNameText_e6abe8")]')
         for conn in connections:
             username = conn.get_attribute("aria-label")
@@ -88,8 +73,10 @@ def extract_twitter():
                 link = normalize_link(f"https://x.com/{username}")
                 if link not in twitter_links:
                     twitter_links.add(link)
-                    print(f"✅ Found (Connection): {link} | Total Scraped: {len(twitter_links)}")
+                    print(f"✅ Found (Connection): {link} | Total: {len(twitter_links)}")
+                    found_any = True
 
+        # 2. Scrape any visible Twitter bio links
         bio_links = driver.find_elements(By.XPATH, '//a[contains(@class, "anchor_edefb8") and (contains(@href, "twitter.com") or contains(@href, "x.com"))]')
         for link in bio_links:
             href = link.get_attribute("href")
@@ -97,17 +84,39 @@ def extract_twitter():
                 clean_href = normalize_link(href)
                 if clean_href not in twitter_links:
                     twitter_links.add(clean_href)
-                    print(f"✅ Found (Bio Link): {clean_href} | Total Scraped: {len(twitter_links)}")
+                    print(f"✅ Found (Bio Link): {clean_href} | Total: {len(twitter_links)}")
+                    found_any = True
+
+        # 3. If nothing found, open Full Bio and try again
+        if not found_any:
+            if try_open_full_bio():
+                time.sleep(0.5)
+                connections = driver.find_elements(By.XPATH, '//div[contains(@class, "connectedAccountNameText_e6abe8")]')
+                for conn in connections:
+                    username = conn.get_attribute("aria-label")
+                    if username:
+                        link = normalize_link(f"https://x.com/{username}")
+                        if link not in twitter_links:
+                            twitter_links.add(link)
+                            print(f"✅ Found (Connection After Full Bio): {link} | Total: {len(twitter_links)}")
+
+                bio_links = driver.find_elements(By.XPATH, '//a[contains(@class, "anchor_edefb8") and (contains(@href, "twitter.com") or contains(@href, "x.com"))]')
+                for link in bio_links:
+                    href = link.get_attribute("href")
+                    if href:
+                        clean_href = normalize_link(href)
+                        if clean_href not in twitter_links:
+                            twitter_links.add(clean_href)
+                            print(f"✅ Found (Bio Link After Full Bio): {clean_href} | Total: {len(twitter_links)}")
 
     except Exception as e:
         print(f"❌ Error scraping profile: {e}")
-
 
 def close_modal():
     try:
         body = driver.find_element(By.TAG_NAME, 'body')
         body.send_keys(Keys.ESCAPE)
-        time.sleep(random.uniform(0.1, 0.2))
+        time.sleep(random.uniform(0.2, 0.3))
     except:
         pass
 
@@ -135,9 +144,9 @@ def scrape_members_scroll_locked():
                 new_found = True
 
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", member)
-                time.sleep(random.uniform(0.4, 0.6))
+                time.sleep(random.uniform(0.3, 0.5))
                 member.click()
-                time.sleep(random.uniform(0.4, 0.8))
+                time.sleep(random.uniform(0.3, 0.5))
 
                 WebDriverWait(driver, 2).until(
                     EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]'))
@@ -146,7 +155,6 @@ def scrape_members_scroll_locked():
                 close_modal()
 
             except StaleElementReferenceException:
-                # Silently skip stale elements
                 pass
             except Exception as e:
                 print(f"❌ Error on member: {e}")
