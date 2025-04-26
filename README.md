@@ -21,4 +21,9 @@ Install the Python libraries:
 ```bash
 pip install selenium undetected-chromedriver
 
-
+##
+Setup:
+1.
+git clone https://github.com/YOURUSERNAME/discord-twitter-scraper.git
+2.
+cd discord-twitter-scraper
