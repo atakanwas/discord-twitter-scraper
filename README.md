@@ -1,5 +1,7 @@
-# discord-x-profile-scraper
 # Discord Twitter/X Scraper 🕵️‍♂️
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+  ![Maintained](https://img.shields.io/badge/Maintained-yes-green.svg)
 
 Scrape connected Twitter (X) accounts from Discord members quickly and easily.
 
