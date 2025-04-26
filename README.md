@@ -21,9 +21,23 @@ Install the Python libraries:
 ```bash
 pip install selenium undetected-chromedriver
 
-##
+```
 Setup:
-1.
+```bash
 git clone https://github.com/YOURUSERNAME/discord-twitter-scraper.git
-2.
+```
+```bash
 cd discord-twitter-scraper
+```
+1. Edit the DISCORD_URL in discscraper.py to the channel you want to scrape.
+
+2. Update CHROME_PROFILE_PATH and PROFILE_NAME to match your Chrome user settings (needed to stay logged in).
+
+3. Run the script:
+  ```bash
+python discscraper.py
+``` 
+
+4. Press ENTER once Discord is loaded and members are visible.
+
+5. Let it work. Links will be saved into twitter_links.txt when done.
