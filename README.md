@@ -1,7 +1,8 @@
 # Discord Twitter/X Scraper 🕵️‍♂️
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-  ![Maintained](https://img.shields.io/badge/Maintained-yes-green.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Maintained](https://img.shields.io/badge/Maintained-yes-green.svg)
+![Made by Seraph-666](https://img.shields.io/badge/Made%20by-Seraph--666-blueviolet.svg)
 
 Scrape connected Twitter (X) accounts from Discord members quickly and easily.
 
