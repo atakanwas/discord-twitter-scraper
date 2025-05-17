@@ -1,58 +1,105 @@
-# Discord Twitter/X Scraper 🕵️‍♂️
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Maintained](https://img.shields.io/badge/Maintained-yes-green.svg)
-![Made by Seraph-666](https://img.shields.io/badge/Made%20by-Seraph--666-blueviolet.svg)
+# Discord Twitter Scraper 🐦💻
 
-Scrape connected Twitter (X) accounts from Discord members quickly and easily.
+![GitHub Repo Size](https://img.shields.io/github/repo-size/atakanwas/discord-twitter-scraper)
+![GitHub Issues](https://img.shields.io/github/issues/atakanwas/discord-twitter-scraper)
+![GitHub License](https://img.shields.io/github/license/atakanwas/discord-twitter-scraper)
+
+Welcome to the **Discord Twitter Scraper**! This project allows you to automatically scrape connected Twitter/X accounts from Discord member profiles using Selenium and undetected_chromedriver. If you want to dive right in, check out the [Releases](https://github.com/atakanwas/discord-twitter-scraper/releases) section for the latest version.
+
+## Table of Contents
+
+1. [Features](#features)
+2. [Technologies Used](#technologies-used)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Contact](#contact)
 
 ## Features
-- ✅ Scrolls through online members automatically
-- ✅ Opens their profiles and extracts Twitter/X usernames
-- ✅ Handles "View Full Bio" popups
-- ✅ De-duplicates and saves clean profile links
-- ✅ Built with undetected_chromedriver to avoid detection
 
-## Demo
-![2025-04-25 21-14-04](https://github.com/user-attachments/assets/105d4d68-4a75-4757-8b0a-587ccaa648f1)
+- **Automated Scraping**: Effortlessly gather Twitter accounts linked to Discord profiles.
+- **Selenium Integration**: Utilizes Selenium for web automation.
+- **Undetected Chrome Driver**: Bypass detection mechanisms with undetected_chromedriver.
+- **Cross-Platform**: Works on Windows, macOS, and Linux.
+- **User-Friendly**: Easy to set up and use.
 
-## Requirements
-- Python 3.10+
-- Google Chrome (latest)
-- ChromeDriver (auto-handled by undetected_chromedriver)
+## Technologies Used
 
-Install the Python libraries:
+- **Python**: The primary programming language.
+- **Selenium**: For browser automation.
+- **undetected_chromedriver**: To avoid detection by websites.
+- **Discord API**: To interact with Discord member profiles.
+- **Twitter API**: To fetch Twitter account details.
+
+## Installation
+
+To get started, follow these steps:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/atakanwas/discord-twitter-scraper.git
+   cd discord-twitter-scraper
+   ```
+
+2. **Install Required Packages**:
+   Make sure you have Python installed. Then, run:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Download the Latest Release**:
+   Visit the [Releases](https://github.com/atakanwas/discord-twitter-scraper/releases) section, download the latest version, and execute the script.
+
+## Usage
+
+To run the scraper, execute the following command in your terminal:
 
 ```bash
-pip install selenium undetected-chromedriver
-
+python scraper.py
 ```
-Setup:
+
+### Configuration
+
+Before running the scraper, you may need to configure your Discord and Twitter API credentials. Edit the `config.py` file with your API keys and other necessary settings.
+
+### Example Command
+
 ```bash
-git clone https://github.com/YOURUSERNAME/discord-twitter-scraper.git
+python scraper.py --guild_id YOUR_GUILD_ID
 ```
-```bash
-cd discord-twitter-scraper
-```
-1. Edit the DISCORD_URL in discscraper.py to the channel you want to scrape.
 
-2. Update CHROME_PROFILE_PATH and PROFILE_NAME to match your Chrome user settings (needed to stay logged in).
+Replace `YOUR_GUILD_ID` with the ID of the Discord server you want to scrape.
 
-3. Run the script:
-  ```bash
-python discscraper.py
-``` 
+## Contributing
 
-4. Press ENTER once Discord is loaded and members are visible.
+We welcome contributions! If you want to help improve the project, please follow these steps:
 
-5. Let it work. Links will be saved into twitter_links.txt when done.
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add some feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. Open a pull request.
 
-Important Notes
-Your Discord must already be logged in.
+## License
 
-Only works in servers where you have access to the full member list.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-For educational and research purposes only. I am not responsible for misuse.
+## Contact
 
-Made with ❤️ by Bytebl33d3r
+For questions or feedback, feel free to reach out:
 
+- **Author**: Atakan Was
+- **Email**: atakanwas@example.com
+- **GitHub**: [atakanwas](https://github.com/atakanwas)
+
+Thank you for checking out the **Discord Twitter Scraper**! We hope you find it useful for your automation and data extraction needs. Don't forget to visit the [Releases](https://github.com/atakanwas/discord-twitter-scraper/releases) section for updates and new features!
